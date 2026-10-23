@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UMP &amp; VAS Jan–Jun lawan Jul–Sep 2026</title>
+<style>
+:root{--bg:#f7f7f5;--panel:#fff;--fg:#1d1d1b;--muted:#6b6b66;--line:#e4e3de;--jj:#b9bcc4;--q3:#2f5d9a;--up:#1e7d4f;--down:#b3261e;--tip:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#1a1a19;--panel:#242422;--fg:#ecebe6;--muted:#a3a29b;--line:#3a3a37;--jj:#5d606a;--q3:#7fa8e0;--up:#5cc28e;--down:#f08b83;--tip:#2e2e2c}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 16px 48px}
+h1{font:400 30px/1.2 Georgia,"Times New Roman",serif;margin:0}
+.sub{color:var(--muted);font-size:13px;margin-top:6px}
+.take{font-size:16px;margin:14px 0 6px;max-width:60rem}
+.take b{font-weight:600}
+.how{font-size:13px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--q3);border-radius:8px;padding:10px 14px;margin:16px 0 22px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:12px}
+.tile,.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-width:0}
+.tile .lab{font-size:12.5px;color:var(--muted)}
+.tile .num{font:400 26px/1.2 Georgia,serif;margin-top:4px;font-variant-numeric:tabular-nums}
+.tile .foot{font-size:12.5px;color:var(--muted);margin-top:4px}
+.up{color:var(--up)}.down{color:var(--down)}
+section{margin-top:34px}
+section>h2{font:400 21px/1.3 Georgia,serif;margin:0 0 4px}
+section>.note{font-size:13px;color:var(--muted);margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,26rem),1fr));gap:12px}
+.card h3{font-size:15px;font-weight:600;margin:0 0 4px}
+.card .note{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.legend{display:flex;gap:16px;font-size:12.5px;color:var(--muted);margin-bottom:8px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.chart{position:relative}
+.chart svg{display:block;width:100%;overflow:visible}
+.chart text{font-size:12px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.chart text.l{fill:var(--fg)}
+.tip{position:absolute;pointer-events:none;background:var(--tip);border:1px solid var(--line);border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.12);padding:6px 10px;font-size:12.5px;white-space:nowrap;opacity:0;transition:opacity .1s;z-index:3}
+.tip .t{color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:500;color:var(--muted);padding:7px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 8px;border-bottom:1px solid var(--line)}
+.n{text-align:right;white-space:nowrap}
+tr.tot td{font-weight:600;border-top:1px solid var(--muted)}
+.scroll{overflow-x:auto}
+.foot{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:36px;border-top:1px solid var(--line);padding-top:12px}
+.foot ul{margin:4px 0 0;padding-left:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>UMP &amp; VAS: Jan–Jun lawan Jul–Sep 2026</h1>
+  <div class="sub">Kompilasi PF 5.1 &amp; PF 5.2 · 17 unit · hospital + KK dengan anggota farmasi · data setakat 23 Oktober 2026</div>
+  <p class="take" id="take"></p>
+  <div class="how"><b>Cara baca:</b> laporan negeri adalah kumulatif. Jul–Sep = Jan–Sep tolak Jan–Jun. Supaya adil, setiap tempoh dibanding sebagai <b>purata sebulan</b> (Jan–Jun ÷ 6 bulan, Jul–Sep ÷ 3 bulan).</div>
+
+  <div class="tiles" id="tiles"></div>
+
+  <section>
+    <h2>1. Perkhidmatan VAS, purata sebulan</h2>
+    <p class="note">Adakah UMP berkembang lebih cepat daripada perkhidmatan lain?</p>
+    <div class="grid">
+      <div class="card"><div class="legend"><span><i style="background:var(--jj)"></i>Jan–Jun</span><span><i style="background:var(--q3)"></i>Jul–Sep</span></div><div class="chart" id="c-serv"></div></div>
+      <div class="card"><div class="scroll"><table id="t-serv"><thead><tr><th>Perkhidmatan</th><th class="n">Jan–Jun</th><th class="n">Jul–Sep</th><th class="n">Perubahan</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. UMP mengikut negeri</h2>
+    <p class="note">UMP purata sebulan. Merah = menurun berbanding Jan–Jun.</p>
+    <div class="grid">
+      <div class="card"><div class="legend"><span><i style="background:var(--jj)"></i>Jan–Jun</span><span><i style="background:var(--q3)"></i>Jul–Sep</span></div><div class="chart" id="c-state"></div></div>
+      <div class="card"><div class="scroll"><table id="t-state"><thead><tr><th>Negeri</th><th class="n">Jan–Jun</th><th class="n">Jul–Sep</th><th class="n">Perubahan</th><th class="n">Fasiliti UMP</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Fasiliti</h2>
+    <div class="grid">
+      <div class="card"><h3>10 fasiliti dengan pertambahan UMP terbesar</h3><p class="note">UMP purata sebulan, Jan–Jun lawan Jul–Sep.</p>
+        <div class="scroll"><table id="t-inc"><thead><tr><th>Fasiliti</th><th>Negeri</th><th class="n">Jan–Jun</th><th class="n">Jul–Sep</th><th class="n">Tambah</th></tr></thead><tbody></tbody></table></div></div>
+      <div class="card"><h3>Fasiliti yang mula tawar UMP / VAS selepas Jun</h3><p class="note">Tiada pada Jan–Jun, ada pada Jul–Sep. Jumlah Rx Jul–Sep.</p>
+        <div class="scroll"><table id="t-new"><thead><tr><th>Fasiliti</th><th>Negeri</th><th>Baharu</th><th class="n">UMP</th><th class="n">VAS</th></tr></thead><tbody></tbody></table></div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b>Nota data</b>
+    <ul id="notes"></ul>
+  </div>
+</div>
+
+<script>
+const D = {"tot": {"ump_jj": 87118.33333333333, "ump_q3": 100226.66666666667, "vas_jj": 275098.1666666667, "vas_q3": 306566.0, "n_ump_jj": 405, "n_ump_js": 413, "share_jj": 0.3166808939112038, "share_q3": 0.3269334064007968}, "states": [{"negeri": "Perlis", "ump_jj": 87.33333333333333, "ump_q3": 108.66666666666667, "vas_jj": 3465.6666666666665, "vas_q3": 3602.6666666666665, "n_ump_jj": 2, "n_ump_js": 2, "share_jj": 0.025199576801000288, "share_q3": 0.030162842339008143}, {"negeri": "Kedah", "ump_jj": 1709.0, "ump_q3": 1951.6666666666667, "vas_jj": 25353.5, "vas_q3": 34730.0, "n_ump_jj": 11, "n_ump_js": 11, "share_jj": 0.06740686690200565, "share_q3": 0.056195412227661}, {"negeri": "Pulau Pinang", "ump_jj": 4075.5, "ump_q3": 4428.333333333333, "vas_jj": 17765.333333333332, "vas_q3": 18744.0, "n_ump_jj": 22, "n_ump_js": 22, "share_jj": 0.2294074602221555, "share_q3": 0.23625337885901265}, {"negeri": "Perak", "ump_jj": 3272.3333333333335, "ump_q3": 3654.3333333333335, "vas_jj": 23556.833333333332, "vas_q3": 24768.666666666668, "n_ump_jj": 44, "n_ump_js": 45, "share_jj": 0.13891227598502912, "share_q3": 0.14753855677872582}, {"negeri": "Selangor", "ump_jj": 28035.166666666668, "ump_q3": 30530.333333333332, "vas_jj": 44480.5, "vas_q3": 47254.0, "n_ump_jj": 56, "n_ump_js": 57, "share_jj": 0.6302799354024048, "share_q3": 0.6460899253678701}, {"negeri": "Melaka", "ump_jj": 2488.8333333333335, "ump_q3": 2318.3333333333335, "vas_jj": 13508.666666666666, "vas_q3": 13321.666666666666, "n_ump_jj": 28, "n_ump_js": 28, "share_jj": 0.1842397473227064, "share_q3": 0.17402727386463154}, {"negeri": "Negeri Sembilan", "ump_jj": 3099.0, "ump_q3": 2946.0, "vas_jj": 14003.5, "vas_q3": 13234.666666666666, "n_ump_jj": 31, "n_ump_js": 31, "share_jj": 0.22130181740279217, "share_q3": 0.22259721942373564}, {"negeri": "WPKL & Putrajaya", "ump_jj": 3466.8333333333335, "ump_q3": 5025.0, "vas_jj": 6749.166666666667, "vas_q3": 8546.0, "n_ump_jj": 20, "n_ump_js": 20, "share_jj": 0.5136683541177923, "share_q3": 0.5879943833372338}, {"negeri": "Johor", "ump_jj": 25197.333333333332, "ump_q3": 32674.333333333332, "vas_jj": 53619.166666666664, "vas_q3": 63340.666666666664, "n_ump_jj": 102, "n_ump_js": 104, "share_jj": 0.4699314610757969, "share_q3": 0.5158507962235952}, {"negeri": "Pahang", "ump_jj": 3569.5, "ump_q3": 4011.0, "vas_jj": 13178.666666666666, "vas_q3": 14428.333333333334, "n_ump_jj": 29, "n_ump_js": 31, "share_jj": 0.270854411169567, "share_q3": 0.27799468638096336}, {"negeri": "Terengganu", "ump_jj": 496.6666666666667, "ump_q3": 574.3333333333334, "vas_jj": 10482.0, "vas_q3": 12491.666666666666, "n_ump_jj": 7, "n_ump_js": 8, "share_jj": 0.04738281498441773, "share_q3": 0.045977318212141426}, {"negeri": "Kelantan", "ump_jj": 1469.5, "ump_q3": 1635.6666666666667, "vas_jj": 7700.0, "vas_q3": 8611.0, "n_ump_jj": 15, "n_ump_js": 15, "share_jj": 0.19084415584415584, "share_q3": 0.18995083807533}, {"negeri": "IKN", "ump_jj": 389.3333333333333, "ump_q3": 365.6666666666667, "vas_jj": 411.1666666666667, "vas_q3": 386.6666666666667, "n_ump_jj": 1, "n_ump_js": 1, "share_jj": 0.9468990676935549, "share_q3": 0.9456896551724138}, {"negeri": "HKL", "ump_jj": 5818.166666666667, "ump_q3": 5664.666666666667, "vas_jj": 8029.666666666667, "vas_q3": 7944.0, "n_ump_jj": 3, "n_ump_js": 3, "share_jj": 0.7245838349454108, "share_q3": 0.713074857334676}, {"negeri": "Sabah", "ump_jj": 650.6666666666666, "ump_q3": 772.0, "vas_jj": 14457.333333333334, "vas_q3": 16411.666666666668, "n_ump_jj": 15, "n_ump_js": 16, "share_jj": 0.04500599465092687, "share_q3": 0.04703970752513456}, {"negeri": "Sarawak", "ump_jj": 3256.5, "ump_q3": 3526.6666666666665, "vas_jj": 17512.833333333332, "vas_q3": 18028.666666666668, "n_ump_jj": 17, "n_ump_js": 17, "share_jj": 0.18594935142800043, "share_q3": 0.19561439189439042}, {"negeri": "WP Labuan", "ump_jj": 36.666666666666664, "ump_q3": 39.666666666666664, "vas_jj": 824.1666666666666, "vas_q3": 721.6666666666666, "n_ump_jj": 2, "n_ump_js": 2, "share_jj": 0.044489383215369056, "share_q3": 0.05496535796766744}], "serv": [{"servis": "UMP", "jj": 87118.33333333333, "q3": 100226.66666666667}, {"servis": "Lokar Ubat", "jj": 13903.333333333334, "q3": 15215.666666666666}, {"servis": "Farmasi Pandu Lalu", "jj": 77639.66666666667, "q3": 79468.33333333333}, {"servis": "Farmasi Park & Take", "jj": 95381.33333333333, "q3": 110658.0}, {"servis": "UM3", "jj": 1055.5, "q3": 997.3333333333334}, {"servis": "Jumlah VAS", "jj": 275098.1666666667, "q3": 306566.0}], "new": [{"negeri": "Kedah", "fasiliti": "KK Bedong", "baharu": "VAS lain", "ump_q3": 0, "vas_q3": 72}, {"negeri": "Kelantan", "fasiliti": "KK Pengkalan Chepa", "baharu": "VAS lain", "ump_q3": 0, "vas_q3": 52}, {"negeri": "Pahang", "fasiliti": "KK Gambang", "baharu": "UMP", "ump_q3": 38, "vas_q3": 38}, {"negeri": "Pahang", "fasiliti": "KK Bandar Tun Abdul Razak", "baharu": "UMP", "ump_q3": 19, "vas_q3": 19}, {"negeri": "Johor", "fasiliti": "KK Air Hitam", "baharu": "UMP", "ump_q3": 6, "vas_q3": 6}, {"negeri": "Sabah", "fasiliti": "H. Kudat", "baharu": "UMP", "ump_q3": 5, "vas_q3": 5}, {"negeri": "Terengganu", "fasiliti": "KK Paka", "baharu": "UMP", "ump_q3": 3, "vas_q3": 3}, {"negeri": "Perak", "fasiliti": "KK Kuala Kurau", "baharu": "UMP", "ump_q3": 2, "vas_q3": 2}, {"negeri": "Johor", "fasiliti": "KK Renggam", "baharu": "UMP", "ump_q3": 2, "vas_q3": 2}, {"negeri": "Selangor", "fasiliti": "KK Hulu Kelang", "baharu": "UMP", "ump_q3": 1, "vas_q3": 1}], "inc": [{"negeri": "Johor", "fasiliti": "H. Sultanah Aminah, Johor Bahru", "jj": 8280.166666666666, "q3": 10357.0}, {"negeri": "WPKL & Putrajaya", "fasiliti": "H. Putrajaya", "jj": 1054.1666666666667, "q3": 2272.6666666666665}, {"negeri": "Selangor", "fasiliti": "H. Selayang", "jj": 4920.333333333333, "q3": 5944.333333333333}, {"negeri": "Johor", "fasiliti": "KK Taman Universiti", "jj": 914.8333333333334, "q3": 1870.0}, {"negeri": "Johor", "fasiliti": "KK Sultan Ismail", "jj": 1848.3333333333333, "q3": 2384.3333333333335}, {"negeri": "Johor", "fasiliti": "KK Bandar Kota Tinggi", "jj": 60.666666666666664, "q3": 521.0}, {"negeri": "Johor", "fasiliti": "KK Pasir Gudang", "jj": 112.83333333333333, "q3": 546.6666666666666}, {"negeri": "Selangor", "fasiliti": "H. Shah Alam", "jj": 668.1666666666666, "q3": 1000.6666666666666}, {"negeri": "Johor", "fasiliti": "KK Skudai Baru", "jj": 633.1666666666666, "q3": 951.3333333333334}, {"negeri": "Johor", "fasiliti": "KK Taman Cendana", "jj": 28.5, "q3": 279.0}], "dec": ["H. Jempol (Negeri Sembilan)", "KK Daro (Sarawak)", "KK Kuala Pilah (Negeri Sembilan)", "KK Narandang (Sabah)", "KK Sarikei (Sarawak)", "KK Seri Menanti (Negeri Sembilan)", "KK Teluk Medan (Perak)"], "unmatched": 8};
+const fN = (v) => Math.round(v).toLocaleString('en-US');
+const fP = (v) => (v * 100).toFixed(1) + '%';
+const fCh = (v) => (v >= 0 ? '+' : '−') + Math.abs(v * 100).toFixed(1) + '%';
+const ch = (a, b) => (a ? b / a - 1 : null);
+const el = (tag, attrs = {}, text) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; return e; };
+const cls = (v) => (v == null ? '' : v >= 0 ? 'up' : 'down');
+const T = D.tot, umpCh = ch(T.ump_jj, T.ump_q3), vasCh = ch(T.vas_jj, T.vas_q3);
+
+// takeaway
+const up = D.states.filter((s) => s.ump_q3 > s.ump_jj).length;
+const best = D.states.slice().sort((a, b) => (b.ump_q3 - b.ump_jj) - (a.ump_q3 - a.ump_jj))[0];
+const tk = document.getElementById('take');
+const b = (t) => el('b', {}, t);
+tk.append('UMP sebulan naik ', b(fCh(umpCh)), ' pada Jul–Sep (', b(fN(T.ump_jj) + ' → ' + fN(T.ump_q3)), '), lebih cepat daripada jumlah VAS (' + fCh(vasCh) + '). ',
+  b(up + ' daripada ' + D.states.length), ' unit meningkat; pertambahan terbesar ', b(best.negeri), '. Fasiliti yang menawarkan UMP bertambah ' + (T.n_ump_js - T.n_ump_jj) + ' (' + T.n_ump_jj + ' → ' + T.n_ump_js + ').');
+
+// tiles
+const tiles = [
+  ['UMP sebulan, Jul–Sep', fN(T.ump_q3), 'Jan–Jun ' + fN(T.ump_jj), umpCh],
+  ['Jumlah VAS sebulan, Jul–Sep', fN(T.vas_q3), 'Jan–Jun ' + fN(T.vas_jj), vasCh],
+  ['Fasiliti dengan UMP', T.n_ump_jj + ' → ' + T.n_ump_js, 'Jan–Jun → Jan–Sep', null],
+  ['UMP dalam jumlah VAS', fP(T.share_jj) + ' → ' + fP(T.share_q3), 'Jan–Jun → Jul–Sep', null],
+];
+const tw = document.getElementById('tiles');
+for (const [lab, num, foot, c] of tiles) { const t = el('div', { class: 'tile' }); t.append(el('div', { class: 'lab' }, lab), el('div', { class: 'num' }, num));
+  const f = el('div', { class: 'foot' }, foot); if (c != null) { f.append(' · '); f.append(el('span', { class: cls(c) }, fCh(c))); } t.append(f); tw.append(t); }
+
+// paired horizontal bars
+const NS = 'http://www.w3.org/2000/svg';
+const sv = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); return e; };
+function paired(box, rows) {
+  const draw = () => {
+    box.replaceChildren(); const W = box.clientWidth; if (!W) return;
+    const rowH = 32, H = rows.length * rowH + 6; const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, height: H }); box.append(svg);
+    const meas = (s) => { const t = sv('text', {}); t.textContent = s; svg.append(t); const w = t.getComputedTextLength(); t.remove(); return w; };
+    const left = Math.max(...rows.map((r) => meas(r.label))) + 10, right = Math.max(...rows.map((r) => meas(r.end))) + 12;
+    const max = Math.max(...rows.flatMap((r) => [r.a, r.b])) || 1; const x = (v) => left + (W - left - right) * Math.max(0, v) / max;
+    const tip = el('div', { class: 'tip' }); box.append(tip);
+    rows.forEach((r, i) => {
+      const g = sv('g', { transform: `translate(0,${i * rowH})` }); svg.append(g);
+      g.append(sv('rect', { x: 0, y: 0, width: W, height: rowH, fill: 'transparent' }));
+      const l = sv('text', { x: left - 10, y: rowH / 2 + 4, 'text-anchor': 'end', class: 'l' }); l.textContent = r.label; g.append(l);
+      g.append(sv('rect', { x: left, y: 5, height: 10, rx: 3, width: x(r.a) - left, fill: 'var(--jj)' }));
+      g.append(sv('rect', { x: left, y: 17, height: 10, rx: 3, width: x(r.b) - left, fill: r.b < r.a ? 'var(--down)' : 'var(--q3)' }));
+      const e = sv('text', { x: x(Math.max(r.a, r.b)) + 6, y: rowH / 2 + 4 }); e.textContent = r.end; g.append(e);
+      g.addEventListener('mousemove', (ev) => { const bb = box.getBoundingClientRect();
+        tip.replaceChildren(el('div', { class: 't' }, r.label), el('div', {}, 'Jan–Jun ' + fN(r.a) + ' sebulan'), el('div', {}, 'Jul–Sep ' + fN(r.b) + ' sebulan'));
+        tip.style.opacity = 1; tip.style.left = Math.min(bb.width - tip.offsetWidth, ev.clientX - bb.left + 12) + 'px'; tip.style.top = Math.max(0, ev.clientY - bb.top - tip.offsetHeight - 8) + 'px'; });
+      g.addEventListener('mouseleave', () => { tip.style.opacity = 0; });
+    });
+  };
+  draw(); new ResizeObserver(draw).observe(box);
+}
+const endTxt = (a, b) => fN(b) + (a ? ' (' + fCh(b / a - 1) + ')' : '');
+paired(document.getElementById('c-serv'), D.serv.filter((s) => s.servis !== 'Jumlah VAS').map((s) => ({ label: s.servis, a: s.jj, b: s.q3, end: endTxt(s.jj, s.q3) })));
+paired(document.getElementById('c-state'), D.states.slice().sort((a, b) => b.ump_q3 - a.ump_q3).map((s) => ({ label: s.negeri, a: s.ump_jj, b: s.ump_q3, end: endTxt(s.ump_jj, s.ump_q3) })));
+
+// tables
+const row = (tb, cells, total) => { const tr = el('tr', total ? { class: 'tot' } : {}); for (const [v, c] of cells) tr.append(el('td', c ? { class: c } : {}, v)); tb.append(tr); };
+let tb = document.querySelector('#t-serv tbody');
+for (const s of D.serv) { const c = ch(s.jj, s.q3); row(tb, [[s.servis], [fN(s.jj), 'n'], [fN(s.q3), 'n'], [c == null ? '—' : fCh(c), 'n ' + cls(c)]], s.servis === 'Jumlah VAS'); }
+tb = document.querySelector('#t-state tbody');
+for (const s of D.states.slice().sort((a, b) => (ch(b.ump_jj, b.ump_q3) ?? -9) - (ch(a.ump_jj, a.ump_q3) ?? -9))) { const c = ch(s.ump_jj, s.ump_q3);
+  row(tb, [[s.negeri], [fN(s.ump_jj), 'n'], [fN(s.ump_q3), 'n'], [c == null ? '—' : fCh(c), 'n ' + cls(c)], [s.n_ump_jj + ' → ' + s.n_ump_js, 'n']]); }
+row(tb, [['Jumlah'], [fN(T.ump_jj), 'n'], [fN(T.ump_q3), 'n'], [fCh(umpCh), 'n ' + cls(umpCh)], [T.n_ump_jj + ' → ' + T.n_ump_js, 'n']], true);
+tb = document.querySelector('#t-inc tbody');
+for (const r of D.inc) row(tb, [[r.fasiliti], [r.negeri], [fN(r.jj), 'n'], [fN(r.q3), 'n'], ['+' + fN(r.q3 - r.jj), 'n up']]);
+tb = document.querySelector('#t-new tbody');
+for (const r of D.new) row(tb, [[r.fasiliti], [r.negeri], [r.baharu], [fN(r.ump_q3), 'n'], [fN(r.vas_q3), 'n']]);
+
+// notes
+const notes = [
+  'Sumber: Google Sheet "COMPILE 5.1 AND 5.2 JAN SEPT 2026" (v8.1, diaudit) dan "FINAL PF 5.1 5.2 Jan-Jun 2026" (17 Okt 2026), tab Compile.',
+  'Padanan fasiliti antara dua tempoh ikut negeri + nama. ' + D.unmatched + ' fasiliti Jan–Sep tidak dapat dipadan (nama berubah atau fasiliti baharu) dan tidak dimasukkan dalam jadual fasiliti; jumlah negeri dan nasional tidak terjejas.',
+  'Fasiliti dengan nilai Jan–Sep lebih rendah daripada Jan–Jun (tidak sepatutnya berlaku untuk data kumulatif) — perlu disahkan dengan negeri: ' + D.dec.join(', ') + '.',
+  'Perbandingan ini menunjukkan perubahan selepas Jun; ia tidak membuktikan punca perubahan.',
+];
+const ul = document.getElementById('notes'); for (const n of notes) ul.append(el('li', {}, n));
+</script>
+</body>
+</html>
